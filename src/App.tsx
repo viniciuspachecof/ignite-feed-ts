@@ -1,35 +1,60 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Header } from './components/Header';
+import { Post, PostType } from './components/Post';
 
-function App() {
-  const [count, setCount] = useState(0)
+import './global.css';
+import styles from './App.module.css';
+import { Sidebar } from './components/Sidebar';
 
+const posts: PostType[] = [
+  {
+    id: 1,
+    author: {
+      avatarUrl: 'https://github.com/viniciuspachecof.png',
+      name: 'Vinicius Pacheco',
+      role: 'dev front end',
+    },
+    content: [
+      { type: 'paragraph', content: 'Fala galeraa 👋' },
+      {
+        type: 'paragraph',
+        content:
+          'Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀',
+      },
+      { type: 'link', content: 'jane.design/doctorcare' },
+    ],
+    publishedAt: new Date('2025-02-24 20:50:00'),
+  },
+  {
+    id: 2,
+    author: {
+      avatarUrl: 'https://github.com/viniciuspachecof.png',
+      name: 'Tiago Fernandes',
+      role: 'dev back end',
+    },
+    content: [
+      { type: 'paragraph', content: 'Fala galeraa 👋' },
+      {
+        type: 'paragraph',
+        content:
+          'Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀',
+      },
+      { type: 'link', content: 'jane.design/doctorcare' },
+    ],
+    publishedAt: new Date('2025-02-28 20:55:00'),
+  },
+];
+
+export function App() {
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      <Header />
 
-export default App
+      <div className={styles.wrapper}>
+        <Sidebar />
+        <main>
+          {posts.map((post) => <Post key={post.id} post={post}/>)}
+        </main>
+      </div>
+    </>
+  );
+}
